@@ -12,7 +12,7 @@ public class GroupManager {
 
     private static volatile GroupManager instance;
     //Mappa che associa ad ogni id il gruppo corrispondente
-    private final Map<Integer, List<GraphicObject>> groups;
+    private final Map<Integer, Group> groups;
     //Counter usato per incrementare di volta in volta l'id (non è necessario che sia statico perché l'istanza è unica)
     private int groupIdCounter;
 
@@ -38,7 +38,7 @@ public class GroupManager {
 
     public int createGroup() {
         int newGroupId = groupIdCounter++;
-        groups.put(newGroupId, new ArrayList<>());
+        groups.put(newGroupId, new Group());
         return newGroupId;
     }//createGroup -> crea un nuovo gruppo e ne restituisce l'id
 
@@ -50,7 +50,7 @@ public class GroupManager {
 
 
     public boolean addToGroup(int groupId, GraphicObject object) {
-        List<GraphicObject> group = groups.get(groupId);
+        Group group = groups.get(groupId);
         if (group != null) {
             return group.add(object);
         }
@@ -59,7 +59,7 @@ public class GroupManager {
 
 
     public boolean removeFromGroup(int groupId, GraphicObject object) {
-        List<GraphicObject> group = groups.get(groupId);
+        Group group = groups.get(groupId);
         if (group != null) {
             return group.remove(object);
         }
@@ -69,7 +69,7 @@ public class GroupManager {
 
 
     public List<GraphicObject> getGroupObjects(int groupId) {
-        return groups.get(groupId);
+        return groups.get(groupId).getChildren();
     }//getGroupObjects -> restituisce una lista degli oggetti presetni nel gruppo
 
 
