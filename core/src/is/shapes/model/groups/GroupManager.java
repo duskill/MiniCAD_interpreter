@@ -61,14 +61,18 @@ public class GroupManager {
     public boolean removeFromGroup(int groupId, GraphicObject object) {
         Group group = groups.get(groupId);
         if (group != null) {
-            return group.remove(object);
+            group.remove(object);
+            if (group.getChildren().isEmpty()){
+                groups.remove(groupId);
+            }
+            return true;// //restituisce true se l'oggetto è stato rimosso, inoltre se il gruppo diventa vuoto lo elimina,
         }
-        return false; //restituisce true se l'oggetto è stato rimosso, false se non era presente o il gruppo non esiste
+        return false;// restituisce false se non era presente o il gruppo non esiste
 
     }//removeFromGroup -> rimuove un oggetto a un gruppo
 
 
-    public List<GraphicObject> getGroupObjects(int groupId) {
+    public Set<GraphicObject> getGroupObjects(int groupId) {
         return groups.get(groupId).getChildren();
     }//getGroupObjects -> restituisce una lista degli oggetti presetni nel gruppo
 
