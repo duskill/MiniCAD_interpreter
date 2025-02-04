@@ -1,6 +1,7 @@
 package is.shapes.model.groups;
 
 import is.shapes.model.AbstractGraphicObject;
+import is.shapes.model.GraphicEvent;
 import is.shapes.model.GraphicObject;
 
 import java.awt.*;
@@ -23,6 +24,7 @@ public class Group extends AbstractGraphicObject {
     public boolean add(GraphicObject graphicObject) {
         if(children.add(graphicObject)){
             updatePosition();
+            notifyListeners(new GraphicEvent(this));
             return true;
         }
            return false;
@@ -32,6 +34,7 @@ public class Group extends AbstractGraphicObject {
     public boolean remove(GraphicObject graphicObject) {
         if(children.remove(graphicObject)){
             updatePosition();
+            notifyListeners(new GraphicEvent(this));
             return true;
         }
         return false;
@@ -62,6 +65,7 @@ public class Group extends AbstractGraphicObject {
 
         //ricalcolo il centro del gruppo
         updatePosition();
+        notifyListeners(new GraphicEvent(this));
     }
 
     @Override
@@ -110,6 +114,8 @@ public class Group extends AbstractGraphicObject {
             double deltaY = objPosition.getY() - this.getPosition().getY();
             obj.moveTo(this.getPosition().getX() + deltaX * factor, this.getPosition().getY() + deltaY * factor);
         }
+        notifyListeners(new GraphicEvent(this));
+
     }//scale -> scala di un determinato fattore tutti gli oggetti del gruppo e li riposiziona in modo da rispettare il centro
 
     @Override
