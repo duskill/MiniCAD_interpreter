@@ -1,5 +1,7 @@
 package is.shapes.model;
 
+import is.shapes.calculationStrategy.RectangleImageCalculationStrategy;
+
 import java.awt.Dimension;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
@@ -11,6 +13,7 @@ public final class RectangleObject extends AbstractGraphicObject {
 	private Dimension2D dim;
 
 	public RectangleObject(Point2D pos, double w, double h) {
+		super(new RectangleImageCalculationStrategy(w, h)); // aggiunta la strategy per il calcolo di area e perimetro
 		if (w <= 0 || h <= 0)
 			throw new IllegalArgumentException();
 		dim = new Dimension();

@@ -1,5 +1,7 @@
 package is.shapes.model;
 
+import is.shapes.calculationStrategy.RectangleImageCalculationStrategy;
+
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.geom.Dimension2D;
@@ -19,7 +21,11 @@ public final class ImageObject extends AbstractGraphicObject {
 	}
 
 	public ImageObject(ImageIcon img, Point2D pos) {
-		position = new Point2D.Double(pos.getX(), pos.getY());
+        super(new RectangleImageCalculationStrategy(0,0)); // aggiunta la strategy per il calcolo di area e perimetro
+		RectangleImageCalculationStrategy s = (RectangleImageCalculationStrategy) this.calculationStrategy;
+		s.setWidth(this.getDimension().getWidth());
+		s.setHeight(this.getDimension().getHeight());
+        position = new Point2D.Double(pos.getX(), pos.getY());
 		image = img.getImage();
 	}
 

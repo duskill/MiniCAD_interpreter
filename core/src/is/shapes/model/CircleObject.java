@@ -1,5 +1,7 @@
 package is.shapes.model;
 
+import is.shapes.calculationStrategy.CircleCalculationStrategy;
+
 import java.awt.Dimension;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
@@ -7,10 +9,11 @@ import java.awt.geom.Point2D;
 public final  class CircleObject extends AbstractGraphicObject {
 
 	private Point2D position;
-
 	private double radius;
 
+
 	public CircleObject(Point2D pos, double r) {
+		super(new CircleCalculationStrategy(r)); // aggiunta la strategy per il calcolo di area e perimetro
 		if (r <= 0)
 			throw new IllegalArgumentException();
 		position = new Point2D.Double(pos.getX(), pos.getY());
