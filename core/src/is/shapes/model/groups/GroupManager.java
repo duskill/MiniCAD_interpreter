@@ -1,5 +1,6 @@
 package is.shapes.model.groups;
 
+import is.shapes.model.AbstractGraphicObject;
 import is.shapes.model.GraphicObject;
 
 import java.util.*;
@@ -49,7 +50,7 @@ public class GroupManager {
 
 
 
-    public boolean addToGroup(int groupId, GraphicObject object) {
+    public boolean addToGroup(int groupId, AbstractGraphicObject object) {
         Group group = groups.get(groupId);
         if (group != null) {
             return group.add(object);
@@ -72,7 +73,7 @@ public class GroupManager {
     }//removeFromGroup -> rimuove un oggetto a un gruppo
 
 
-    public Set<GraphicObject> getGroupObjects(int groupId) {
+    public Set<AbstractGraphicObject> getGroupObjects(int groupId) {
         return groups.get(groupId).getChildren();
     }//getGroupObjects -> restituisce una lista degli oggetti presetni nel gruppo
 

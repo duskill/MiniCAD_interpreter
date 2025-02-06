@@ -9,7 +9,7 @@ import java.util.List;
 public abstract class AbstractGraphicObject implements GraphicObject, Cloneable {
 
 	private  List<GraphicObjectListener> listeners = new LinkedList<>();
-	protected ShapeCalculationStrategy calculationStrategy; // aggiunta la strategy per il calcolo di area e perimetro
+	private ShapeCalculationStrategy calculationStrategy; // aggiunta la strategy per il calcolo di area e perimetro
 
 	public AbstractGraphicObject(ShapeCalculationStrategy calculationStrategy) {
 		this.calculationStrategy = calculationStrategy;
@@ -56,4 +56,7 @@ public abstract class AbstractGraphicObject implements GraphicObject, Cloneable 
 		return calculationStrategy.calculatePerimeter();
 	}
 
+	public ShapeCalculationStrategy getCalculationStrategy() {
+		return calculationStrategy;
+	}
 }

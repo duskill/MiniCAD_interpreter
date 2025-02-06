@@ -1,5 +1,6 @@
 package is.shapes.model.groups;
 
+import is.shapes.calculationStrategy.GroupCalculationStrategy;
 import is.shapes.model.AbstractGraphicObject;
 import is.shapes.model.GraphicEvent;
 import is.shapes.model.GraphicObject;
@@ -13,15 +14,18 @@ import java.util.*;
  * Classe composite per la gestione dei gruppi
  */
 public class Group extends AbstractGraphicObject {
-    private final Set<GraphicObject> children; // lista dei componenti del gruppo
+    private final Set<AbstractGraphicObject> children; // lista dei componenti del gruppo
     private final Point2D position;
 
     public Group() {
+        super(new GroupCalculationStrategy(new HashSet<>()));
+        GroupCalculationStrategy s = (GroupCalculationStrategy) this.getCalculationStrategy();
+        s.setChildren(this.getChildren());
         children = new HashSet<>();
         position = new Point2D.Double();
     }
 
-    public boolean add(GraphicObject graphicObject) {
+    public boolean add(AbstractGraphicObject graphicObject) {
         if(children.add(graphicObject)){
             updatePosition();
             notifyListeners(new GraphicEvent(this));
@@ -42,7 +46,7 @@ public class Group extends AbstractGraphicObject {
     }//remove -> rimuove l'oggetto dal gruppo aggiornando la posizione e restituisce true se era presente, altrimenti restituisce false
 
 
-    public Set<GraphicObject> getChildren() {
+    public Set<AbstractGraphicObject> getChildren() {
         return children;
     }//getChildren -> restituisce la lista dei componenti del gruppo
 

@@ -22,7 +22,7 @@ public final class ImageObject extends AbstractGraphicObject {
 
 	public ImageObject(ImageIcon img, Point2D pos) {
         super(new RectangleImageCalculationStrategy(0,0)); // aggiunta la strategy per il calcolo di area e perimetro
-		RectangleImageCalculationStrategy s = (RectangleImageCalculationStrategy) this.calculationStrategy;
+		RectangleImageCalculationStrategy s = (RectangleImageCalculationStrategy) this.getCalculationStrategy();
 		s.setWidth(this.getDimension().getWidth());
 		s.setHeight(this.getDimension().getHeight());
         position = new Point2D.Double(pos.getX(), pos.getY());
