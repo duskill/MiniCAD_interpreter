@@ -23,7 +23,7 @@ public class GroupCalculationStrategy implements ShapeCalculationStrategy {
     public double calculatePerimeter() {
         double sum = 0;
         for (AbstractGraphicObject component : components) {
-            sum += component.getCalculationStrategy().calculateArea();
+            sum += component.getCalculationStrategy().calculatePerimeter();
         }
         return sum;
     }
