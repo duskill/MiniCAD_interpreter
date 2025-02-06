@@ -19,7 +19,7 @@ public class Group extends AbstractGraphicObject {
 
     public Group() {
         super(new GroupCalculationStrategy(new HashSet<>()));
-        GroupCalculationStrategy s = (GroupCalculationStrategy) this.getCalculationStrategy();
+        GroupCalculationStrategy s = (GroupCalculationStrategy) this.getCalculationStrategy(); // aggiunta la strategy per il calcolo di area e perimetro
         s.setChildren(this.getChildren());
         children = new HashSet<>();
         position = new Point2D.Double();
