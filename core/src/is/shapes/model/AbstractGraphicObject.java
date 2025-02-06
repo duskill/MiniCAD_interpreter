@@ -1,12 +1,19 @@
 package is.shapes.model;
 
 
+import is.shapes.calculationStrategy.ShapeCalculationStrategy;
+
 import java.util.LinkedList;
 import java.util.List;
 
 public abstract class AbstractGraphicObject implements GraphicObject, Cloneable {
 
 	private  List<GraphicObjectListener> listeners = new LinkedList<>();
+	private ShapeCalculationStrategy calculationStrategy; // aggiunta la strategy per il calcolo di area e perimetro
+
+	public AbstractGraphicObject(ShapeCalculationStrategy calculationStrategy) {
+		this.calculationStrategy = calculationStrategy;
+	}
 
 	@Override
 	public void addGraphicObjectListener(GraphicObjectListener l) {
@@ -30,7 +37,6 @@ public abstract class AbstractGraphicObject implements GraphicObject, Cloneable 
 	}
 
 
-
 	@Override
 	public GraphicObject clone() {
 		try {
@@ -42,4 +48,15 @@ public abstract class AbstractGraphicObject implements GraphicObject, Cloneable 
 		}
 	}
 
+	public double getArea() {
+		return calculationStrategy.calculateArea();
+	}
+
+	public double getPerimeter() {
+		return calculationStrategy.calculatePerimeter();
+	}
+
+	public ShapeCalculationStrategy getCalculationStrategy() {
+		return calculationStrategy;
+	}
 }
