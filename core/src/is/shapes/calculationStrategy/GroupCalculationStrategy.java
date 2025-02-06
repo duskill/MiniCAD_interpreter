@@ -1,10 +1,6 @@
 package is.shapes.calculationStrategy;
 
 import is.shapes.model.AbstractGraphicObject;
-import is.shapes.model.GraphicObject;
-import is.shapes.model.groups.GroupIterator;
-
-import java.util.List;
 import java.util.Set;
 
 public class GroupCalculationStrategy implements ShapeCalculationStrategy {
