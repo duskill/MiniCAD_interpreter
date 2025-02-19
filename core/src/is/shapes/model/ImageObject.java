@@ -1,6 +1,8 @@
 package is.shapes.model;
 
 import is.shapes.calculationStrategy.RectangleImageCalculationStrategy;
+import memento.GraphicObjectMemento;
+import memento.ImageMemento;
 
 import java.awt.Dimension;
 import java.awt.Image;
@@ -83,6 +85,21 @@ public final class ImageObject extends AbstractGraphicObject {
 	public String getType() {
 
 		return "Image";
+	}
+
+	@Override
+	public GraphicObjectMemento saveState() {
+		return new ImageMemento(getPosition(), factor);
+	}
+
+	@Override
+	public void restoreState(GraphicObjectMemento memento) {
+		if (!(memento instanceof ImageMemento)) {
+			throw new IllegalArgumentException("Invalid Memento for Image");
+		}
+		ImageMemento imageMemento = (ImageMemento) memento;
+		moveTo(imageMemento.getPosition());
+		this.factor = imageMemento.getScaleFactor();
 	}
 
 }

@@ -4,11 +4,14 @@ import is.shapes.calculationStrategy.GroupCalculationStrategy;
 import is.shapes.model.AbstractGraphicObject;
 import is.shapes.model.GraphicEvent;
 import is.shapes.model.GraphicObject;
+import memento.GraphicObjectMemento;
+import memento.GroupMemento;
 
 import java.awt.*;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 import java.util.*;
+import java.util.List;
 
 /**
  * Classe composite per la gestione dei gruppi
@@ -142,4 +145,30 @@ public class Group extends AbstractGraphicObject {
         double newWidth = this.getDimension().getWidth()/2.0;
         position.setLocation(newWidth, newHeight);
     }//updatePosition -> aggiorna la posizione calcolando il centro del bounding box
+
+
+    @Override
+    public GraphicObjectMemento saveState() {
+        List<GraphicObjectMemento> savedStates = new ArrayList<>();
+        GroupIterator iterator = new GroupIterator(this);
+        while (iterator.hasNext()) {
+            savedStates.add(iterator.next().saveState());
+        }
+        return new GroupMemento(savedStates);
+    }
+
+    @Override
+    public void restoreState(GraphicObjectMemento memento) {
+        if (!(memento instanceof GroupMemento)) {
+            throw new IllegalArgumentException("Invalid Memento for Group");
+        }
+        GroupMemento groupMemento = (GroupMemento) memento;
+
+        GroupIterator iterator = new GroupIterator(this);
+        Iterator<GraphicObjectMemento> mementoIterator = groupMemento.getChildrenMementos().iterator();
+
+        while (iterator.hasNext() && mementoIterator.hasNext()) {
+            iterator.next().restoreState(mementoIterator.next());
+        }
+    }
 }

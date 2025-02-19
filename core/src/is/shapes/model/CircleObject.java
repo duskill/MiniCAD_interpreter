@@ -1,6 +1,8 @@
 package is.shapes.model;
 
 import is.shapes.calculationStrategy.CircleCalculationStrategy;
+import memento.CircleMemento;
+import memento.GraphicObjectMemento;
 
 import java.awt.Dimension;
 import java.awt.geom.Dimension2D;
@@ -71,5 +73,21 @@ public final  class CircleObject extends AbstractGraphicObject {
 
 	public double getRadius() {
 		return radius;
+	}
+
+	@Override
+	public GraphicObjectMemento saveState() {
+		return new CircleMemento(getPosition(), radius);
+	}
+
+	@Override
+	public void restoreState(GraphicObjectMemento memento) {
+		if (memento instanceof CircleMemento) {
+			CircleMemento circleMemento = (CircleMemento) memento;
+			moveTo(circleMemento.getPosition());
+			this.radius = circleMemento.getRadius();
+		} else {
+			throw new IllegalArgumentException("Invalid Memento for Circle");
+		}
 	}
 }

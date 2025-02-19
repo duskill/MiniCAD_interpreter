@@ -1,5 +1,7 @@
 package is.shapes.model;
 
+import memento.GraphicObjectMemento;
+
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 
@@ -24,4 +26,8 @@ public interface GraphicObject {
 	boolean contains(Point2D p);
 
 	String getType();
+
+	public GraphicObjectMemento saveState();
+
+	public void restoreState(GraphicObjectMemento memento);
 }
