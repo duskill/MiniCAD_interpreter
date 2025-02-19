@@ -27,7 +27,7 @@ public interface GraphicObject {
 
 	String getType();
 
-	public GraphicObjectMemento saveState();
+	GraphicObjectMemento saveState();
 
-	public void restoreState(GraphicObjectMemento memento);
+	void restoreState(GraphicObjectMemento memento);
 }

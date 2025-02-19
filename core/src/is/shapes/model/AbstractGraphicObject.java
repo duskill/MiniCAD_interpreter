@@ -2,7 +2,7 @@ package is.shapes.model;
 
 
 import is.shapes.calculationStrategy.ShapeCalculationStrategy;
-import memento.GraphicObjectMemento;
+
 
 import java.util.LinkedList;
 import java.util.List;
