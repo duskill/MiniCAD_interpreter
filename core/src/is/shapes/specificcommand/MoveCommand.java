@@ -3,7 +3,6 @@ package is.shapes.specificcommand;
 import is.command.Command;
 import is.shapes.model.GraphicObject;
 import memento.GraphicObjectMemento;
-
 import java.awt.geom.Point2D;
 
 public class MoveCommand implements Command {
@@ -14,7 +13,7 @@ public class MoveCommand implements Command {
 	public MoveCommand(GraphicObject obj, Point2D pos) {
 		this.object = obj;
 		this.newPos = pos;
-		this.prevState = obj.saveState();
+		this.prevState = createMemento(); // Salva lo stato iniziale
 	}
 
 	@Override
@@ -33,12 +32,12 @@ public class MoveCommand implements Command {
 	}
 
 	@Override
-	public GraphicObjectMemento getMemento() {
-		return prevState;
+	public GraphicObjectMemento createMemento() {
+		return object.saveState();
 	}
 
 	@Override
-	public void setMemento(GraphicObjectMemento memento) {
+	public void restoreMemento(GraphicObjectMemento memento) {
 		this.prevState = memento;
 	}
 }
