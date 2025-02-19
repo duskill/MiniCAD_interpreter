@@ -2,16 +2,17 @@ package is.shapes.specificcommand;
 
 import is.command.Command;
 import is.shapes.model.GraphicObject;
+import memento.GraphicObjectMemento;
 
 public class ZoomCommand implements Command {
-	
 	private final GraphicObject object;
 	private final double factor;
+	private GraphicObjectMemento prevState;
 
 	public ZoomCommand(GraphicObject obj, double factor) {
-		object = obj;
+		this.object = obj;
 		this.factor = factor;
-		
+		this.prevState = createMemento();
 	}
 
 	@Override
@@ -22,8 +23,20 @@ public class ZoomCommand implements Command {
 
 	@Override
 	public boolean undoIt() {
-		object.scale(1.0 / factor);
-		return true;
+		if (prevState != null) {
+			object.restoreState(prevState);
+			return true;
+		}
+		return false;
 	}
 
+	@Override
+	public GraphicObjectMemento createMemento() {
+		return object.saveState();
+	}
+
+	@Override
+	public void restoreMemento(GraphicObjectMemento memento) {
+		this.prevState = memento;
+	}
 }

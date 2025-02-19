@@ -3,6 +3,7 @@ package is.shapes.model;
 
 import is.shapes.calculationStrategy.ShapeCalculationStrategy;
 
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -59,4 +60,5 @@ public abstract class AbstractGraphicObject implements GraphicObject, Cloneable 
 	public ShapeCalculationStrategy getCalculationStrategy() {
 		return calculationStrategy;
 	}
+
 }

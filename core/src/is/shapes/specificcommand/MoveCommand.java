@@ -2,38 +2,42 @@ package is.shapes.specificcommand;
 
 import is.command.Command;
 import is.shapes.model.GraphicObject;
-
+import memento.GraphicObjectMemento;
 import java.awt.geom.Point2D;
 
 public class MoveCommand implements Command {
+	private final GraphicObject object;
+	private final Point2D newPos;
+	private GraphicObjectMemento prevState; // Stato precedente
 
-	private  final Point2D oldPos;
-
-	private  final Point2D newPos;
-
-	private  final GraphicObject object;
-	
-	public MoveCommand(GraphicObject go, Point2D pos) {
-		oldPos = go.getPosition();
-		newPos = pos;
-		this.object = go;
-		
-		
+	public MoveCommand(GraphicObject obj, Point2D pos) {
+		this.object = obj;
+		this.newPos = pos;
+		this.prevState = createMemento(); // Salva lo stato iniziale
 	}
 
 	@Override
 	public boolean doIt() {
-
 		object.moveTo(newPos);
-
 		return true;
 	}
 
 	@Override
 	public boolean undoIt() {
-		object.moveTo(oldPos);
-		
-		return true;
+		if (prevState != null) {
+			object.restoreState(prevState);
+			return true;
+		}
+		return false;
 	}
 
+	@Override
+	public GraphicObjectMemento createMemento() {
+		return object.saveState();
+	}
+
+	@Override
+	public void restoreMemento(GraphicObjectMemento memento) {
+		this.prevState = memento;
+	}
 }

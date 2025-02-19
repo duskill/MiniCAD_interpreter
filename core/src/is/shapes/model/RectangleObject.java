@@ -1,6 +1,8 @@
 package is.shapes.model;
 
 import is.shapes.calculationStrategy.RectangleImageCalculationStrategy;
+import memento.GraphicObjectMemento;
+import memento.RectangleMemento;
 
 import java.awt.Dimension;
 import java.awt.geom.Dimension2D;
@@ -9,7 +11,6 @@ import java.awt.geom.Point2D;
 public final class RectangleObject extends AbstractGraphicObject {
 
 	private Point2D position;
-
 	private Dimension2D dim;
 
 	public RectangleObject(Point2D pos, double w, double h) {
@@ -71,5 +72,20 @@ public final class RectangleObject extends AbstractGraphicObject {
 	public String getType() {
 
 		return "Rectangle";
+	}
+
+	@Override
+	public GraphicObjectMemento saveState() {
+		return new RectangleMemento(getPosition(), getDimension());
+	}
+
+	@Override
+	public void restoreState(GraphicObjectMemento memento) {
+		if (!(memento instanceof RectangleMemento)) {
+			throw new IllegalArgumentException("Invalid Memento for Rectangle");
+		}
+		RectangleMemento rectangleMemento = (RectangleMemento) memento;
+		moveTo(rectangleMemento.getPosition());
+		this.dim = rectangleMemento.getDimension();
 	}
 }
