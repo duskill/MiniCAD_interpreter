@@ -9,10 +9,11 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
-import java.util.HashMap;
+
+import java.io.Serial;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
+
 
 import javax.swing.JComponent;
 
@@ -21,6 +22,7 @@ public class GraphicObjectPanel extends JComponent implements GraphicObjectListe
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 8993548105090978185L;
 
 	/**
@@ -93,5 +95,8 @@ public class GraphicObjectPanel extends JComponent implements GraphicObjectListe
 
 	}
 
-	
+
+	public List<GraphicObject> getObjects() {
+		return objects;
+	}
 }
