@@ -73,7 +73,7 @@ public class GroupManager {
     }//removeFromGroup -> rimuove un oggetto a un gruppo
 
 
-    public Set<AbstractGraphicObject> getGroupObjects(int groupId) {
+    public Set<GraphicObject> getGroupObjects(int groupId) {
         return groups.get(groupId).getChildren();
     }//getGroupObjects -> restituisce una lista degli oggetti presetni nel gruppo
 
@@ -87,4 +87,8 @@ public class GroupManager {
         groups.clear();
         groupIdCounter = 1;
     }//clearAll -> elimina tutti i gruppi e resetta il manager
+
+    public Group getGroup(int GroupID){
+        return groups.get(GroupID);
+    }
 }

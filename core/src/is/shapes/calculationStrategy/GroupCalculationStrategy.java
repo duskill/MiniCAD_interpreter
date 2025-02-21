@@ -1,19 +1,22 @@
 package is.shapes.calculationStrategy;
 
 import is.shapes.model.AbstractGraphicObject;
+import is.shapes.model.GraphicObject;
+
+
 import java.util.Set;
 
 public class GroupCalculationStrategy implements ShapeCalculationStrategy {
-    Set<AbstractGraphicObject> components;
+    Set<GraphicObject> components;
 
-    public GroupCalculationStrategy(Set<AbstractGraphicObject> components) {
+    public GroupCalculationStrategy(Set<GraphicObject> components) {
         this.components = components;
     }
 
     @Override
     public double calculateArea() {
        double sum = 0;
-       for (AbstractGraphicObject component : components) {
+       for (GraphicObject component : components) {
            sum += component.getCalculationStrategy().calculateArea();
        }
        return sum;
@@ -22,13 +25,13 @@ public class GroupCalculationStrategy implements ShapeCalculationStrategy {
     @Override
     public double calculatePerimeter() {
         double sum = 0;
-        for (AbstractGraphicObject component : components) {
+        for (GraphicObject component : components) {
             sum += component.getCalculationStrategy().calculatePerimeter();
         }
         return sum;
     }
 
-    public void setChildren(Set<AbstractGraphicObject> children){
+    public void setChildren(Set<GraphicObject> children){
         this.components = children;
     }
 }

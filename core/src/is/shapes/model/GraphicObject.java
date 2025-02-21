@@ -1,5 +1,6 @@
 package is.shapes.model;
 
+import is.shapes.calculationStrategy.ShapeCalculationStrategy;
 import memento.GraphicObjectMemento;
 
 import java.awt.geom.Dimension2D;
@@ -30,4 +31,6 @@ public interface GraphicObject {
 	GraphicObjectMemento saveState();
 
 	void restoreState(GraphicObjectMemento memento);
+
+	ShapeCalculationStrategy getCalculationStrategy();
 }

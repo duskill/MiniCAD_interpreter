@@ -17,7 +17,7 @@ import java.util.List;
  * Classe composite per la gestione dei gruppi
  */
 public class Group extends AbstractGraphicObject {
-    private final Set<AbstractGraphicObject> children; // lista dei componenti del gruppo
+    private final Set<GraphicObject> children; // lista dei componenti del gruppo
     private final Point2D position;
 
     public Group() {
@@ -28,7 +28,7 @@ public class Group extends AbstractGraphicObject {
         position = new Point2D.Double();
     }
 
-    public boolean add(AbstractGraphicObject graphicObject) {
+    public boolean add(GraphicObject graphicObject) {
         if(children.add(graphicObject)){
             updatePosition();
             notifyListeners(new GraphicEvent(this));
@@ -49,7 +49,7 @@ public class Group extends AbstractGraphicObject {
     }//remove -> rimuove l'oggetto dal gruppo aggiornando la posizione e restituisce true se era presente, altrimenti restituisce false
 
 
-    public Set<AbstractGraphicObject> getChildren() {
+    public Set<GraphicObject> getChildren() {
         return children;
     }//getChildren -> restituisce la lista dei componenti del gruppo
 
