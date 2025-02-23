@@ -2,7 +2,7 @@ package is.interpreter;
 
 import is.command.Command;
 import is.shapes.model.GraphicObject;
-import is.shapes.specificcommand.ZoomCommand;
+import is.shapes.specificcommand.ScaleCommand;
 import is.shapes.view.GraphicObjectPanel;
 
 public class ScaleExpression implements Expression {
@@ -21,7 +21,7 @@ public class ScaleExpression implements Expression {
     public Command interpret() {
         GraphicObject obj = panel.getObjects().get(argument);
         if (obj == null) throw new IllegalArgumentException("Oggetto non trovato: " + argument);
-        return new ZoomCommand(obj, factor);
+        return new ScaleCommand(obj, factor);
     }
 }
 
