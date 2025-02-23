@@ -26,6 +26,8 @@ public class Group extends AbstractGraphicObject {
         s.setChildren(this.getChildren());
         children = new HashSet<>();
         position = new Point2D.Double();
+
+
     }
 
     public boolean add(GraphicObject graphicObject) {

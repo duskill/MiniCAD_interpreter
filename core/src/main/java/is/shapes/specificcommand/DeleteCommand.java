@@ -10,6 +10,7 @@ public class DeleteCommand implements Command {
     private final GraphicObject object;
     private GraphicObjectMemento prevState;
 
+
     public DeleteCommand(GraphicObjectPanel panel, GraphicObject object) {
         this.panel = panel;
         this.object = object;
