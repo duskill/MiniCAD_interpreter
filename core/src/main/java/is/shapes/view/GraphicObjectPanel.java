@@ -19,7 +19,7 @@ import javax.swing.JComponent;
 public class GraphicObjectPanel extends JComponent implements GraphicObjectListener {
 
 	/**
-	 * 
+	 *
 	 */
 	@Serial
 	private static final long serialVersionUID = 8993548105090978185L;
@@ -43,7 +43,7 @@ public class GraphicObjectPanel extends JComponent implements GraphicObjectListe
 
 	}
 
-	
+
 	public GraphicObject getGraphicObjectAt(Point2D p) {
 		for (GraphicObject g : objects.values()) {
 			if (g.contains(p))
@@ -97,7 +97,7 @@ public class GraphicObjectPanel extends JComponent implements GraphicObjectListe
 
 
 	public List<GraphicObject> getObjects() {
-		return  (List<GraphicObject>) objects.values();
+		return  new ArrayList<>(objects.values());
 	}
 
 	public Set<Integer> getObjectsID() {return objects.keySet();}

@@ -16,7 +16,7 @@ public class GroupExpression implements Expression {
 
     public GroupExpression(String objectIds, GraphicObjectPanel panel) {
         this.objectIds = parseIds(objectIds);
-        this.groupManager = GroupManager.getInstance();
+        this.groupManager = GroupManager.getInstance(panel);
         this.panel = panel;
     }
 

@@ -122,7 +122,7 @@ public class Parser {
     private Expression parseUngroup() throws IOException {
         expectNextToken("Atteso identificatore di gruppo per il comando 'ungrp'");
         int groupId = parseInteger("L'ID del gruppo deve essere un numero intero valido");
-        return new UngroupExpression(groupId);
+        return new UngroupExpression(groupId, panel);
     }
 
     private Expression parseArea() throws IOException {

@@ -13,7 +13,7 @@ public class ListExpression implements Expression {
 
     public ListExpression(String argument, GraphicObjectPanel panel) {
         this.argument = argument;
-        this.groupManager = GroupManager.getInstance();
+        this.groupManager = GroupManager.getInstance(panel);
         this.panel = panel;
     }
 
