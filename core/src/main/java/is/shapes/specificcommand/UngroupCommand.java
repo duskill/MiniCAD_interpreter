@@ -44,11 +44,15 @@ public class UngroupCommand implements Command {
     }
 
     @Override
-    public void restoreMemento(GraphicObjectMemento memento) {
-        if (memento != null) {
+    public void restoreMemento() {
+        if (prevState != null) {
             int restoredID = groupManager.createGroup();
             Group restoredGroup = groupManager.getGroup(restoredID);
-            restoredGroup.restoreState(memento);
+            restoredGroup.restoreState(prevState);
         }
+    }
+
+    public GraphicObjectMemento getMemento() {
+        return this.prevState;
     }
 }

@@ -18,4 +18,5 @@ public class CircleMemento implements GraphicObjectMemento {
     public double getRadius() {
         return radius;
     }
+
 }

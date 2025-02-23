@@ -38,12 +38,15 @@ public class AreaCommand implements Command {
 
     @Override
     public GraphicObjectMemento createMemento() {
-        return prevState;
+        return null; //non necessario
     }
 
     @Override
-    public void restoreMemento(GraphicObjectMemento memento) {
-        this.prevState = memento;
+    public void restoreMemento() {}
+
+    @Override
+    public GraphicObjectMemento getMemento() {
+        return this.prevState;
     }
 
 }

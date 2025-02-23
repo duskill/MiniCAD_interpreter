@@ -84,7 +84,7 @@ public final  class CircleObject extends AbstractGraphicObject {
 	public void restoreState(GraphicObjectMemento memento) {
 		if (memento instanceof CircleMemento) {
 			CircleMemento circleMemento = (CircleMemento) memento;
-			moveTo(circleMemento.getPosition());
+			this.moveTo(circleMemento.getPosition());
 			this.radius = circleMemento.getRadius();
 		} else {
 			throw new IllegalArgumentException("Invalid Memento for Circle");

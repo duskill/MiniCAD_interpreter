@@ -37,13 +37,14 @@ public class PerimeterCommand implements Command {
     }
 
     @Override
-    public GraphicObjectMemento createMemento() {
-        return prevState;
-    }
+    public GraphicObjectMemento createMemento() {return null;}
 
     @Override
-    public void restoreMemento(GraphicObjectMemento memento) {
-        this.prevState = memento;
+    public void restoreMemento() {
+    }
+
+    public GraphicObjectMemento getMemento() {
+        return this.prevState;
     }
 
 }

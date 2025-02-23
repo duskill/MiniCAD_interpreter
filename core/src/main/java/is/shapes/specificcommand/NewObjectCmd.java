@@ -41,7 +41,11 @@ public class NewObjectCmd implements Command {
 	}
 
 	@Override
-	public void restoreMemento(GraphicObjectMemento memento) {
-		this.prevState = memento;
+	public void restoreMemento() {
+		go.restoreState(prevState);
+	}
+
+	public GraphicObjectMemento getMemento() {
+		return this.prevState;
 	}
 }

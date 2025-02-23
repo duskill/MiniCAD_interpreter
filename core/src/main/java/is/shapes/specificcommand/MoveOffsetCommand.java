@@ -41,7 +41,11 @@ public class MoveOffsetCommand implements Command {
     }
 
     @Override
-    public void restoreMemento(GraphicObjectMemento memento) {
-        object.restoreState(memento);
+    public void restoreMemento() {
+        object.restoreState(prevState);
+    }
+
+    public GraphicObjectMemento getMemento() {
+        return this.prevState;
     }
 }

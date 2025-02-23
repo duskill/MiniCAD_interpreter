@@ -37,7 +37,12 @@ public class MoveCommand implements Command {
 	}
 
 	@Override
-	public void restoreMemento(GraphicObjectMemento memento) {
-		this.prevState = memento;
+	public void restoreMemento() {
+		object.restoreState(prevState);
+	}
+
+	@Override
+	public GraphicObjectMemento getMemento() {
+		return this.prevState;
 	}
 }

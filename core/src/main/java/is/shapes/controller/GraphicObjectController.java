@@ -3,7 +3,8 @@ package is.shapes.controller;
 import is.command.CommandHandler;
 import is.shapes.model.GraphicObject;
 import is.shapes.specificcommand.MoveCommand;
-import is.shapes.specificcommand.ZoomCommand;
+import is.shapes.specificcommand.ScaleCommand;
+
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -52,7 +53,7 @@ public class GraphicObjectController extends JPanel {
 		minus.addActionListener(e -> {
 			if (subject != null) {
 				// subject.scale(1.0-zoom_factor);
-				cmdHandler.handle(new ZoomCommand(subject, 1.0 - zoom_factor));
+				cmdHandler.handle(new ScaleCommand(subject, 1.0 - zoom_factor));
 			}
 		});
 
@@ -62,7 +63,7 @@ public class GraphicObjectController extends JPanel {
 		plus.addActionListener(e -> {
 			if (subject != null) {
 				// subject.scale(1.0 + zoom_factor);
-				cmdHandler.handle(new ZoomCommand(subject, 1.0 + zoom_factor));
+				cmdHandler.handle(new ScaleCommand(subject, 1.0 + zoom_factor));
 			}
 		});
 

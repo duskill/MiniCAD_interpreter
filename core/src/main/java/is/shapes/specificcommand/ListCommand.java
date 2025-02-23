@@ -54,7 +54,7 @@ public class ListCommand implements Command {
     }
 
     @Override
-    public void restoreMemento(GraphicObjectMemento memento) {
+    public void restoreMemento() {
         // Non necessario per ls
     }
 
@@ -98,5 +98,9 @@ public class ListCommand implements Command {
         } catch (NumberFormatException e) {
             return false;
         }
+    }
+
+    public GraphicObjectMemento getMemento() {
+        return null;
     }
 }

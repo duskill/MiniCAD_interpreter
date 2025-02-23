@@ -45,7 +45,11 @@ public class GroupCommand implements Command {
     }
 
     @Override
-    public void restoreMemento(GraphicObjectMemento memento) {
-        group.restoreState(memento);
+    public void restoreMemento() {
+        group.restoreState(prevState);
+    }
+
+    public GraphicObjectMemento getMemento() {
+        return this.prevState;
     }
 }
