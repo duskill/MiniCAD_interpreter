@@ -20,6 +20,8 @@ public interface GraphicObject {
 
 	Point2D getPosition();
 
+	Integer getId();
+
 	Dimension2D getDimension();
 
 	void scale(double factor);

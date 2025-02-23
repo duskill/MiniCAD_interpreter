@@ -10,10 +10,17 @@ import java.util.List;
 public abstract class AbstractGraphicObject implements GraphicObject, Cloneable {
 
 	private  List<GraphicObjectListener> listeners = new LinkedList<>();
-	private ShapeCalculationStrategy calculationStrategy; // aggiunta la strategy per il calcolo di area e perimetro
+	private final ShapeCalculationStrategy calculationStrategy; // aggiunta la strategy per il calcolo di area e perimetro
+	private static int idCounter = 0;  // Contatore globale degli ID
+	private final int id;  // ID univoco dell'oggetto
 
 	public AbstractGraphicObject(ShapeCalculationStrategy calculationStrategy) {
 		this.calculationStrategy = calculationStrategy;
+		this.id = idCounter++;
+	}
+
+	public Integer getId() {
+		return id;
 	}
 
 	@Override

@@ -11,8 +11,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
 import java.io.Serial;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 
 import javax.swing.JComponent;
@@ -29,7 +28,8 @@ public class GraphicObjectPanel extends JComponent implements GraphicObjectListe
 	 * @directed true
 	 */
 
-	private final List<GraphicObject> objects = new LinkedList<>();
+
+	private final Map<Integer, GraphicObject> objects = new HashMap<>();
 
 
 	public GraphicObjectPanel() {
@@ -45,7 +45,7 @@ public class GraphicObjectPanel extends JComponent implements GraphicObjectListe
 
 	
 	public GraphicObject getGraphicObjectAt(Point2D p) {
-		for (GraphicObject g : objects) {
+		for (GraphicObject g : objects.values()) {
 			if (g.contains(p))
 				return g;
 		}
@@ -57,7 +57,7 @@ public class GraphicObjectPanel extends JComponent implements GraphicObjectListe
 		Dimension ps = super.getPreferredSize();
 		double x = ps.getWidth();
 		double y = ps.getHeight();
-		for (GraphicObject go : objects) {
+		for (GraphicObject go : objects.values()) {
 			double nx = go.getPosition().getX() + go.getDimension().getWidth() / 2;
 			double ny = go.getPosition().getY() + go.getDimension().getHeight() / 2;
 			if (nx > x)
@@ -74,7 +74,7 @@ public class GraphicObjectPanel extends JComponent implements GraphicObjectListe
 		super.paintComponent(g);
 
 		Graphics2D g2 = (Graphics2D) g;
-		for (GraphicObject go : objects) {
+		for (GraphicObject go : objects.values()) {
 			GraphicObjectView view = GraphicObjectViewFactory.FACTORY.createView(go);
 			view.drawGraphicObject(go, g2);
 		}
@@ -82,13 +82,13 @@ public class GraphicObjectPanel extends JComponent implements GraphicObjectListe
 	}
 
 	public void add(GraphicObject go) {
-		objects.add(go);
+		objects.put(go.getId(), go);
 		go.addGraphicObjectListener(this);
 		repaint();
 	}
 
 	public void remove(GraphicObject go) {
-		if (objects.remove(go)) {
+		if (objects.remove(go.getId()) != null) {
 			repaint();
 			go.removeGraphicObjectListener(this);
 		}
@@ -97,6 +97,8 @@ public class GraphicObjectPanel extends JComponent implements GraphicObjectListe
 
 
 	public List<GraphicObject> getObjects() {
-		return objects;
+		return  (List<GraphicObject>) objects.values();
 	}
+
+	public Set<Integer> getObjectsID() {return objects.keySet();}
 }

@@ -63,7 +63,6 @@ public class ListCommand implements Command {
             Group group = groupManager.getGroup(id);
             return "Gruppo " + id + ": " + group.getChildren();
         } else {
-            //assumo per semplicità che l'id nel caso degli oggetti sia indicato dalla posizione nella lista
                 if (panel.getObjects().size() <= id) {
                     return "Oggetto " + id + ": " + panel.getObjects().get(id);
                     }
