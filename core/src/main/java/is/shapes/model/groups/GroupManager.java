@@ -15,13 +15,13 @@ public class GroupManager {
     //Mappa che associa ad ogni id il gruppo corrispondente
     private final Map<Integer, Group> groups;
     //Counter usato per incrementare di volta in volta l'id (non è necessario che sia statico perché l'istanza è unica)
-    private int groupIdCounter;
+    //private int groupIdCounter;
     // Riferimento al pannello grafico per gestire gli oggetti visibili
     private final GraphicObjectPanel panel;
 
     private GroupManager(GraphicObjectPanel panel) {
         this.groups = new HashMap<>();
-        this.groupIdCounter = 0; // Gli id partono da 0
+       // this.groupIdCounter = 0; // Gli id partono da 0
         this.panel = panel;
     }//costruttore
 
@@ -40,11 +40,11 @@ public class GroupManager {
 
 
     public int createGroup() {
-        int newGroupId = groupIdCounter++;
+        //int newGroupId = groupIdCounter++;
         Group newGroup = new Group();
-        groups.put(newGroupId, newGroup);
+        groups.put(newGroup.getId(), newGroup);
         panel.add(newGroup); // Aggiungo il gruppo anche al pannello grafico
-        return newGroupId;
+        return newGroup.getId();
     }//createGroup -> crea un nuovo gruppo e ne restituisce l'id
 
 
@@ -106,7 +106,7 @@ public class GroupManager {
             panel.remove(group); // Rimuove tutti i gruppi dal pannello
         }
         groups.clear();
-        groupIdCounter = 1;
+        //groupIdCounter = 1;
     }//clearAll -> elimina tutti i gruppi e resetta il manager
 
     public Group getGroup(int GroupID){

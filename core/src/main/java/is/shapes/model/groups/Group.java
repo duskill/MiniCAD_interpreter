@@ -175,4 +175,8 @@ public class Group extends AbstractGraphicObject {
             iterator.next().restoreState(mementoIterator.next());
         }
     }
+
+    public String toString() {
+        return "Oggetto id: "+ getId() + " di tipo " + getType() + " in posizione " + getPosition() + "\n" + "Contenuto: " + getChildren();
+    }
 }

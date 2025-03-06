@@ -8,6 +8,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.awt.geom.Point2D;
+import java.util.LinkedList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,7 +26,7 @@ class ExpressionTests {
 
     @Test
     void testAreaExpression() {
-        AreaExpression areaExpression = new AreaExpression(0, panel);
+        AreaExpression areaExpression = new AreaExpression("10", panel);
         Command command = areaExpression.interpret();
         assertInstanceOf(AreaCommand.class, command);
     }
@@ -38,7 +40,9 @@ class ExpressionTests {
 
     @Test
     void testGroupExpression() {
-        GroupExpression groupExpression = new GroupExpression("0", panel);
+        List<Integer> ids = new LinkedList<>();
+        ids.add(1);
+        GroupExpression groupExpression = new GroupExpression(ids, panel);
         Command command = groupExpression.interpret();
         assertInstanceOf(GroupCommand.class, command);
     }
@@ -75,7 +79,7 @@ class ExpressionTests {
 
     @Test
     void testPerimeterExpression() {
-        PerimeterExpression perimeterExpression = new PerimeterExpression(0, panel);
+        PerimeterExpression perimeterExpression = new PerimeterExpression("10", panel);
         Command command = perimeterExpression.interpret();
         assertInstanceOf(PerimeterCommand.class, command);
     }

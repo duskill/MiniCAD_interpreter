@@ -16,6 +16,6 @@ public class DeleteExpression implements Expression {
 
     @Override
     public Command interpret() {
-        return new DeleteCommand(panel, panel.getObjects().get(argument));
+        return new DeleteCommand(panel, panel.getObjectById(argument));
     }
 }

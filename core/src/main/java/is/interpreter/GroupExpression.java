@@ -10,12 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GroupExpression implements Expression {
-    private final List<String> objectIds;
+    private final List<Integer> objectIds;
     private final GroupManager groupManager;
     private final GraphicObjectPanel panel;
 
-    public GroupExpression(String objectIds, GraphicObjectPanel panel) {
-        this.objectIds = parseIds(objectIds);
+    public GroupExpression(List<Integer> objectIds, GraphicObjectPanel panel) {
+        this.objectIds = objectIds;
         this.groupManager = GroupManager.getInstance(panel);
         this.panel = panel;
     }
@@ -24,8 +24,8 @@ public class GroupExpression implements Expression {
     public Command interpret() {
         List<GraphicObject> objects = new ArrayList<>();
 
-        for (String id : objectIds) {
-            GraphicObject obj = panel.getObjects().get(Integer.parseInt(id));
+        for (Integer id : objectIds) {
+            GraphicObject obj = panel.getObjectById(id);
             if (obj != null) {
                 objects.add(obj);
             } else {
@@ -34,14 +34,5 @@ public class GroupExpression implements Expression {
         }
 
         return new GroupCommand(objects, groupManager);
-    }
-
-    private List<String> parseIds(String ids) {
-        String[] splitIds = ids.split(",");
-        List<String> idList = new ArrayList<>();
-        for (String id : splitIds) {
-            idList.add(id.trim()); // Rimuove eventuali spazi
-        }
-        return idList;
     }
 }

@@ -3,9 +3,8 @@ package is;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Point;
+import java.util.Scanner;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -13,11 +12,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
 
 import is.command.HistoryCommandHandler;
-import is.shapes.controller.GraphicObjectController;
+import is.interpreter.Interpreter;
 import is.shapes.model.CircleObject;
-import is.shapes.model.GraphicObject;
 import is.shapes.model.ImageObject;
 import is.shapes.model.RectangleObject;
+import is.shapes.model.groups.Group;
 import is.shapes.view.*;
 
 public class TestGraphics {
@@ -30,11 +29,22 @@ public class TestGraphics {
 		JButton undoButt = new JButton("Undo");
 		JButton redoButt = new JButton("Redo");
 
-		final HistoryCommandHandler handler = new HistoryCommandHandler();
+		HistoryCommandHandler historyHandler = new HistoryCommandHandler();
 
-		undoButt.addActionListener(evt -> handler.undo());
 
-		redoButt.addActionListener(evt -> handler.redo());
+
+		undoButt.addActionListener(evt -> {
+			System.out.println("Tentativo di eseguire undo...");
+			System.out.println("Dimensione storico: " + historyHandler.getHistoryLength()); // Metodo ipotetico, verifica se esiste
+			historyHandler.undo();
+		});
+
+		redoButt.addActionListener(evt -> {
+			System.out.println("Tentativo di eseguire redo...");
+			System.out.println("Dimensione storico redo: " + historyHandler.getRedoLength()); // Metodo ipotetico, verifica se esiste
+			historyHandler.redo();
+		});
+
 		toolbar.add(undoButt);
 		toolbar.add(redoButt);
 
@@ -46,35 +56,52 @@ public class TestGraphics {
 		GraphicObjectViewFactory.FACTORY.installView(RectangleObject.class, new RectangleObjectView());
 		GraphicObjectViewFactory.FACTORY.installView(CircleObject.class, new CircleObjectView());
 		GraphicObjectViewFactory.FACTORY.installView(ImageObject.class, new ImageObjectView());
+		GraphicObjectViewFactory.FACTORY.installView(Group.class, new GroupObjectView());
 
-		GraphicObject go = new RectangleObject(new Point(80, 80), 20, 50);
-		gpanel.add(go);
-		go.addGraphicObjectListener(logger);
-		GraphicObjectController goc1 = new GraphicObjectController(go, handler);
 
-		go = new CircleObject(new Point(100, 100), 10);
-		gpanel.add(go);
-		go.addGraphicObjectListener(logger);
-		GraphicObjectController goc2 = new GraphicObjectController(go, handler);
 
-		go = new ImageObject(new ImageIcon(TestGraphics.class.getResource("shapes/model/NyaNya.gif")),
-				new Point(40, 87));
-		gpanel.add(go);
-		go.addGraphicObjectListener(logger);
-		GraphicObjectController goc3 = new GraphicObjectController(go, handler);
+
 
 		f.add(toolbar, BorderLayout.NORTH);
 		f.add(gpanel, BorderLayout.CENTER);
 
 		JPanel controlPanel = new JPanel(new FlowLayout());
-		controlPanel.add(goc1);
-		controlPanel.add(goc2);
-		controlPanel.add(goc3);
 
 		f.getContentPane().add(new JScrollPane(controlPanel), BorderLayout.SOUTH);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.pack();
 		f.setVisible(true);
 
+
+		Interpreter interpreter = new Interpreter(historyHandler, gpanel);
+
+		// Lettura dei comandi da console
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Inserisci un comando (oppure 'exit' per uscire):");
+
+		while (true) {
+			System.out.print("> ");
+			String input = scanner.nextLine();
+
+			if (input.equalsIgnoreCase("exit")) {
+				System.out.println("Chiusura del programma.");
+				break;
+			} else if (input.equalsIgnoreCase("undo")) {
+				historyHandler.undo();
+				System.out.println("Undo eseguito.");
+			} else if (input.equalsIgnoreCase("redo")) {
+				historyHandler.redo();
+				System.out.println("Redo eseguito.");
+			} else {
+				try {
+					interpreter.interpret(input);
+					System.out.println("Comando eseguito: " + input);
+				} catch (Exception e) {
+					System.err.println("Errore: " + e.getMessage());
+				}
+			}
+		}
+
+		scanner.close();
 	}
 }

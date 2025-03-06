@@ -87,5 +87,11 @@ public final class RectangleObject extends AbstractGraphicObject {
 		this.position = (rectangleMemento.getPosition());
 		this.dim = rectangleMemento.getDimension();
 		this.setParent(rectangleMemento.getParent());
+		notifyListeners(new GraphicEvent(this));
+	}
+
+	@Override
+	public String toString() {
+		return "Oggetto id: "+ getId() + " di tipo " + getType() + " in posizione " + getPosition() + " e dimensioni " + getDimension();
 	}
 }

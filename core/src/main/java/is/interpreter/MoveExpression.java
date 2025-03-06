@@ -22,7 +22,7 @@ public class MoveExpression implements Expression {
 
     @Override
     public Command interpret() {
-        GraphicObject obj = panel.getObjects().get(argument);
+        GraphicObject obj = panel.getObjectById(argument);
         if (obj == null) throw new IllegalArgumentException("Oggetto non trovato: " + argument);
 
         return isOffset ?

@@ -101,4 +101,8 @@ public class GraphicObjectPanel extends JComponent implements GraphicObjectListe
 	}
 
 	public Set<Integer> getObjectsID() {return objects.keySet();}
+
+	public GraphicObject getObjectById(int id) {
+		return objects.get(id);
+	}
 }

@@ -2,8 +2,12 @@ package is.shapes.specificcommand;
 
 import is.command.Command;
 import is.shapes.model.GraphicObject;
+import is.shapes.model.groups.Group;
+import is.shapes.model.groups.GroupIterator;
 import is.shapes.view.GraphicObjectPanel;
 import is.memento.GraphicObjectMemento;
+
+import java.util.Iterator;
 
 public class DeleteCommand implements Command {
     private final GraphicObjectPanel panel;
@@ -19,6 +23,13 @@ public class DeleteCommand implements Command {
 
     @Override
     public boolean doIt() {
+        if (object.getType().equalsIgnoreCase("group")){
+            Group g = (Group) object;
+            Iterator it = new GroupIterator(g);
+            while (it.hasNext()){
+                panel.remove((GraphicObject) it.next());
+            }
+        }
         panel.remove(object);
         return true;
     }

@@ -8,6 +8,8 @@ import is.shapes.view.GraphicObjectPanel;
 import javax.swing.*;
 import java.awt.geom.Point2D;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Parser {
     private final Tokenizer tokenizer;
@@ -58,21 +60,29 @@ public class Parser {
     }
 
     private CircleObject parseCircle() throws IOException {
+        tokenizer.nextToken();
         expectToken("(");
         double radius = parseDouble("Atteso valore numerico per il raggio del cerchio");
         expectToken(")");
         Point2D position = parsePosition();
+        System.out.println(position);
         return new CircleObject(position, radius);
     }
 
+
     private RectangleObject parseRectangle() throws IOException {
-        Point2D position = parsePosition();
+        tokenizer.nextToken();
+        expectToken("(");
         double width = parseDouble("Atteso valore numerico per la larghezza del rettangolo");
+        expectToken(",");
         double height = parseDouble("Atteso valore numerico per l'altezza del rettangolo");
+        expectToken(")");
+        Point2D position = parsePosition();
         return new RectangleObject(position, width, height);
     }
 
     private ImageObject parseImage() throws IOException {
+        tokenizer.nextToken();
         expectToken("(");
         String path = tokenizer.consume();
         expectToken(")");
@@ -85,13 +95,12 @@ public class Parser {
         double x = parseDouble("Atteso valore numerico per la coordinata X");
         expectToken(",");
         double y = parseDouble("Atteso valore numerico per la coordinata Y");
-        expectToken(")");
         return new Point2D.Double(x, y);
     }
 
     private Expression parseDelete() throws IOException {
         expectNextToken("Atteso identificatore per il comando 'del'");
-        int id = parseInteger("L'ID deve essere un numero intero valido");
+        Integer id = parseInteger("L'ID deve essere un numero intero valido");
         return new DeleteExpression(id, panel);
     }
 
@@ -116,7 +125,29 @@ public class Parser {
 
     private Expression parseGroup() throws IOException {
         expectNextToken("Atteso elenco di ID per il comando 'grp'");
-        return new GroupExpression(tokenizer.getCurrentToken(), panel);
+
+        // Crea una lista per memorizzare gli ID
+        List<Integer> ids = new ArrayList<>();
+
+        // Aggiungi il primo ID
+        ids.add(parseInteger("Atteso un ID valido per il comando 'grp'"));
+
+        // Legge i token separati da virgola
+        while (true) {
+            if (tokenizer.match(",")) { // Se il token è una virgola, significa che c'è un altro ID
+                ids.add(parseInteger("Atteso un ID valido per il comando 'grp'"));
+            } else {
+                break; // Esce dal ciclo quando non trova più virgole
+            }
+        }
+
+        // Verifica che almeno un ID sia stato trovato
+        if (ids.isEmpty()) {
+            throw new IllegalArgumentException("Nessun ID valido trovato per il comando 'grp'");
+        }
+
+        // Restituisce un'espressione che rappresenta il gruppo
+        return new GroupExpression(ids, panel);
     }
 
     private Expression parseUngroup() throws IOException {
@@ -127,12 +158,12 @@ public class Parser {
 
     private Expression parseArea() throws IOException {
         expectNextToken("Atteso identificatore o tipo di oggetto per il comando 'area'");
-        return new AreaExpression(parseInteger("L'ID deve essere un numero intero valido"), panel);
+        return new AreaExpression(tokenizer.getCurrentToken(), panel);
     }
 
     private Expression parsePerimeter() throws IOException {
         expectNextToken("Atteso identificatore o tipo di oggetto per il comando 'perimeter'");
-        return new PerimeterExpression(parseInteger("L'ID deve essere un numero intero valido"), panel);
+        return new PerimeterExpression(tokenizer.getCurrentToken(), panel);
     }
 
 

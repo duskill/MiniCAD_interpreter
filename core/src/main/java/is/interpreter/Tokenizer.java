@@ -28,7 +28,13 @@ public class Tokenizer {
                 currentToken = tokenizer.sval;
                 break;
             case StreamTokenizer.TT_NUMBER:
-                currentToken = String.valueOf(tokenizer.nval);
+                if (isInteger(tokenizer.nval)) {
+                    // Se è intero, memorizza come stringa l'intero
+                    currentToken = String.valueOf((int) tokenizer.nval);
+                } else {
+                    // Se è decimale, memorizza come stringa il numero decimale
+                    currentToken = String.valueOf(tokenizer.nval);
+                }
                 break;
             case '"':
                 currentToken = tokenizer.sval;
@@ -37,6 +43,11 @@ public class Tokenizer {
                 currentToken = String.valueOf((char) tokenType);
         }
         return true;
+    }
+
+    private boolean isInteger(double value) {
+        // Verifica se il numero è un intero
+        return value == (int) value;
     }
 
     public String getCurrentToken() {

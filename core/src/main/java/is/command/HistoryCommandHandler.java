@@ -57,4 +57,13 @@ public class HistoryCommandHandler implements CommandHandler {
 			history.removeLast();
 		}
 	}
+
+	public int getHistoryLength() {
+		return history.size();
+	}
+
+	public int getRedoLength() {
+		return redoList.size();
+	}
+
 }

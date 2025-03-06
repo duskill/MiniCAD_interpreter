@@ -79,4 +79,8 @@ public abstract class AbstractGraphicObject implements GraphicObject, Cloneable 
 		return calculationStrategy;
 	}
 
+	@Override
+	public String toString() {
+		return this.getId().toString();
+	}
 }

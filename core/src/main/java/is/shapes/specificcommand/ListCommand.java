@@ -34,7 +34,7 @@ public class ListCommand implements Command {
                 break;
             default:
                 if (isNumeric(argument)) { // se l'input è un numero lo valuta come id di un oggetto
-                    result = listById(Integer.parseInt(argument));
+                    result = "" + panel.getObjectById(Integer.parseInt(argument));
                 } else {
                     result = listByType(argument); // altrimenti assume che sia un tipo di oggetto
                 }
@@ -63,8 +63,8 @@ public class ListCommand implements Command {
             Group group = groupManager.getGroup(id);
             return "Gruppo " + id + ": " + group.getChildren();
         } else {
-                if (panel.getObjects().size() <= id) {
-                    return "Oggetto " + id + ": " + panel.getObjects().get(id);
+                if (panel.getObjectsID().contains(id)) {
+                    return "Oggetto " + id + ": " + panel.getObjectById(id);
                     }
                 }
         return "Nessun oggetto o gruppo trovato con ID " + id;
@@ -72,13 +72,13 @@ public class ListCommand implements Command {
 
 
     private String listByType(String type) {
-        LinkedList<GraphicObject> ret = new LinkedList<>();
+        LinkedList<Integer> ret = new LinkedList<>();
         for(GraphicObject object : panel.getObjects()) {
-            if (object.getType().equals(type)) {
-                ret.add(object);
+            if (object.getType().equalsIgnoreCase(type)) {
+                ret.add(object.getId());
             }
         }
-        return "Tutti gli oggetti di tipo" + type + ": " + ret;
+        return "Tutti gli oggetti di tipo " + type + ": " + ret;
     }
 
     private String listAllObjects() {
@@ -88,7 +88,7 @@ public class ListCommand implements Command {
 
     private String listAllGroups() {
         Set<Integer> groupIds = groupManager.getAllGroupIds();
-        return groupIds.isEmpty() ? "Nessun gruppo presente" : "Tutti i gruppi: " + groupIds;
+        return groupIds.isEmpty() ? "Nessun gruppo presente" : "Tutti i groupID: " + groupIds;
     }
 
     private boolean isNumeric(String str) {

@@ -25,10 +25,10 @@ public final class ImageObject extends AbstractGraphicObject {
 	public ImageObject(ImageIcon img, Point2D pos) {
         super(new RectangleImageCalculationStrategy(0,0)); // aggiunta la strategy per il calcolo di area e perimetro
 		RectangleImageCalculationStrategy s = (RectangleImageCalculationStrategy) this.getCalculationStrategy();
+		image = img.getImage();
 		s.setWidth(this.getDimension().getWidth());
 		s.setHeight(this.getDimension().getHeight());
         position = new Point2D.Double(pos.getX(), pos.getY());
-		image = img.getImage();
 	}
 
 	@Override
@@ -101,6 +101,11 @@ public final class ImageObject extends AbstractGraphicObject {
 		this.position = imageMemento.getPosition();
 		this.factor = imageMemento.getScaleFactor();
 		this.setParent(imageMemento.getParent());
+		notifyListeners(new GraphicEvent(this));
+	}
+
+	public String toString() {
+		return "Oggetto id: "+ getId() + " di tipo " + getType() + " in posizione " + getPosition() + " e dimensioni " + getDimension();
 	}
 
 }

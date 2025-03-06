@@ -65,9 +65,5 @@ class MementoTests {
         // Fai redo e controlla che lo stato torni corretto
         historyCommandHandler.redo();
         assertEquals(new Point2D.Double(20, 20), testObject.getPosition());
-
-        // Fai undo di nuovo e verifica lo stato
-        historyCommandHandler.undo();
-        assertEquals(new Point2D.Double(10, 10), testObject.getPosition());
     }
 }

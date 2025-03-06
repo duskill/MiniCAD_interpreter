@@ -1,5 +1,5 @@
-import is.shapes.model.CircleObject;
 import is.shapes.model.GraphicObject;
+import is.shapes.model.RectangleObject;
 import is.shapes.model.groups.GroupManager;
 import is.shapes.view.GraphicObjectPanel;
 import is.shapes.specificcommand.*;
@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.awt.geom.Point2D;
 import java.util.LinkedList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,14 +21,16 @@ class CommandTests {
     void setUp() {
         panel = new GraphicObjectPanel();
         groupManager = GroupManager.getInstance(panel);
-        testObject = new CircleObject(new Point2D.Double(2,5), 4); // Assicurati di avere un costruttore valido per GraphicObject
+        testObject = new RectangleObject(new Point2D.Double(2,5), 4, 3);
     }
 
     @Test
     void testAreaCommand() {
-        AreaCommand areaCommand = new AreaCommand(testObject);
+        List<GraphicObject> ls = new LinkedList<>();
+        ls.add(testObject);
+        ls.add(new RectangleObject(new Point2D.Double(2,5), 4, 3));
+        AreaCommand areaCommand = new AreaCommand(ls);
         assertTrue(areaCommand.doIt());
-        assertNotNull(areaCommand.createMemento());
         assertTrue(areaCommand.undoIt());
     }
 
@@ -87,7 +90,9 @@ class CommandTests {
 
     @Test
     void testPerimeterCommand() {
-        PerimeterCommand perimeterCommand = new PerimeterCommand(testObject);
+        List<GraphicObject> ls = new LinkedList<>();
+        ls.add(testObject);
+        PerimeterCommand perimeterCommand = new PerimeterCommand(ls);
         assertTrue(perimeterCommand.doIt());
         assertNotNull(perimeterCommand.createMemento());
         assertTrue(perimeterCommand.undoIt());

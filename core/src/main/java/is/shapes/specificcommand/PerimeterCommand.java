@@ -5,35 +5,35 @@ import is.shapes.model.GraphicObject;
 import is.shapes.calculationStrategy.ShapeCalculationStrategy;
 import is.memento.GraphicObjectMemento;
 
+import java.util.List;
+
 public class PerimeterCommand implements Command {
-    private final GraphicObject object;
-    private final ShapeCalculationStrategy strategy;
-    private double result;
+    private final List<GraphicObject> objects;
+    private double result = 0;
     private GraphicObjectMemento prevState;
 
-    public PerimeterCommand(GraphicObject object) {
-        this.object = object;
-        this.strategy = object.getCalculationStrategy(); // Usa la strategia associata all'oggetto
-        this.prevState = object.saveState();
-    }
+    public PerimeterCommand(List<GraphicObject> objects) {
+        this.objects = objects;
+        }
 
     @Override
     public boolean doIt() {
-        if (strategy != null) {
-            result = strategy.calculatePerimeter();
-            System.out.println("Perimetro: " + result);
-            return true;
+        double result = 0;
+        for (GraphicObject object : objects) {
+            ShapeCalculationStrategy strategy = object.getCalculationStrategy();
+            if (strategy != null) {
+                result += strategy.calculatePerimeter();
+            }else {
+                return false;
+            }
         }
-        return false;
+        System.out.println("Area: " + result);
+        return true;
     }
 
     @Override
     public boolean undoIt() {
-        if (prevState != null) {
-            object.restoreState(prevState);
-            return true;
-        }
-        return false;
+        return true;
     }
 
     @Override
@@ -44,7 +44,7 @@ public class PerimeterCommand implements Command {
     }
 
     public GraphicObjectMemento getMemento() {
-        return this.prevState;
+        return null;
     }
 
 }

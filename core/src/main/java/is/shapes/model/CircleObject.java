@@ -87,8 +87,14 @@ public final  class CircleObject extends AbstractGraphicObject {
 			this.position = circleMemento.getPosition();
 			this.radius = circleMemento.getRadius();
 			this.setParent(circleMemento.getParent());
+			notifyListeners(new GraphicEvent(this));
 		} else {
 			throw new IllegalArgumentException("Invalid Memento for Circle");
 		}
+	}
+
+	@Override
+	public String toString() {
+		return "Oggetto id: "+ getId() + " di tipo " + getType() + " in posizione " + getPosition() + " e raggio " + getRadius();
 	}
 }
