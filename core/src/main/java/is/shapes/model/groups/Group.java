@@ -32,6 +32,7 @@ public class Group extends AbstractGraphicObject {
 
     public boolean add(GraphicObject graphicObject) {
         if(children.add(graphicObject)){
+            graphicObject.setParent(this);
             updatePosition();
             notifyListeners(new GraphicEvent(this));
             return true;
@@ -43,6 +44,7 @@ public class Group extends AbstractGraphicObject {
     public boolean remove(GraphicObject graphicObject) {
         if(children.remove(graphicObject)){
             updatePosition();
+            graphicObject.setParent(this.getParent());
             notifyListeners(new GraphicEvent(this));
             return true;
         }
@@ -156,7 +158,7 @@ public class Group extends AbstractGraphicObject {
         while (iterator.hasNext()) {
             savedStates.add(iterator.next().saveState());
         }
-        return new GroupMemento(savedStates);
+        return new GroupMemento(savedStates, this.getParent());
     }
 
     @Override
@@ -165,7 +167,7 @@ public class Group extends AbstractGraphicObject {
             throw new IllegalArgumentException("Invalid Memento for Group");
         }
         GroupMemento groupMemento = (GroupMemento) memento;
-
+        setParent(groupMemento.getParent());
         GroupIterator iterator = new GroupIterator(this);
         Iterator<GraphicObjectMemento> mementoIterator = groupMemento.getChildrenMementos().iterator();
 

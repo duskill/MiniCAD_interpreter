@@ -75,7 +75,7 @@ public final class RectangleObject extends AbstractGraphicObject {
 
 	@Override
 	public GraphicObjectMemento saveState() {
-		return new RectangleMemento(getPosition(), getDimension());
+		return new RectangleMemento(getPosition(), getDimension(), getParent());
 	}
 
 	@Override
@@ -84,7 +84,8 @@ public final class RectangleObject extends AbstractGraphicObject {
 			throw new IllegalArgumentException("Invalid Memento for Rectangle");
 		}
 		RectangleMemento rectangleMemento = (RectangleMemento) memento;
-		moveTo(rectangleMemento.getPosition());
+		this.position = (rectangleMemento.getPosition());
 		this.dim = rectangleMemento.getDimension();
+		this.setParent(rectangleMemento.getParent());
 	}
 }

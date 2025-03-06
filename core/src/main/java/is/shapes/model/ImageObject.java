@@ -89,7 +89,7 @@ public final class ImageObject extends AbstractGraphicObject {
 
 	@Override
 	public GraphicObjectMemento saveState() {
-		return new ImageMemento(getPosition(), factor);
+		return new ImageMemento(getPosition(), factor, getParent());
 	}
 
 	@Override
@@ -98,8 +98,9 @@ public final class ImageObject extends AbstractGraphicObject {
 			throw new IllegalArgumentException("Invalid Memento for Image");
 		}
 		ImageMemento imageMemento = (ImageMemento) memento;
-		moveTo(imageMemento.getPosition());
+		this.position = imageMemento.getPosition();
 		this.factor = imageMemento.getScaleFactor();
+		this.setParent(imageMemento.getParent());
 	}
 
 }

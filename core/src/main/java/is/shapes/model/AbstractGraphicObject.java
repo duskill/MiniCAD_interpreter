@@ -3,6 +3,7 @@ package is.shapes.model;
 
 
 import is.shapes.calculationStrategy.ShapeCalculationStrategy;
+import is.shapes.model.groups.Group;
 
 
 import java.util.LinkedList;
@@ -14,6 +15,7 @@ public abstract class AbstractGraphicObject implements GraphicObject, Cloneable 
 	private final ShapeCalculationStrategy calculationStrategy; // aggiunta la strategy per il calcolo di area e perimetro
 	private static int idCounter = 0;  // Contatore globale degli ID
 	private final int id;  // ID univoco dell'oggetto
+	private Group parent = null; //mantengo un riferimento al genitore per i composite
 
 	public AbstractGraphicObject(ShapeCalculationStrategy calculationStrategy) {
 		this.calculationStrategy = calculationStrategy;
@@ -22,6 +24,14 @@ public abstract class AbstractGraphicObject implements GraphicObject, Cloneable 
 
 	public Integer getId() {
 		return id;
+	}
+
+	public Group getParent() {
+		return parent;
+	}
+
+	public void setParent(Group parent) {
+		this.parent = parent;
 	}
 
 	@Override

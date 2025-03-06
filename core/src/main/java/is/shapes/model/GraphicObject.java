@@ -2,6 +2,7 @@ package is.shapes.model;
 
 import is.shapes.calculationStrategy.ShapeCalculationStrategy;
 import is.memento.GraphicObjectMemento;
+import is.shapes.model.groups.Group;
 
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
@@ -35,4 +36,7 @@ public interface GraphicObject {
 	void restoreState(GraphicObjectMemento memento);
 
 	ShapeCalculationStrategy getCalculationStrategy();
+
+	Group getParent();
+	void setParent(Group parent);
 }
