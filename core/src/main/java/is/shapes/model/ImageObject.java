@@ -105,7 +105,7 @@ public final class ImageObject extends AbstractGraphicObject {
 	}
 
 	public String toString() {
-		return "Oggetto id: "+ getId() + " di tipo " + getType() + " in posizione " + getPosition() + " e dimensioni " + getDimension();
+		return "Oggetto id: "+ getId() + " di tipo " + getType() + " in posizione (" + getPosition().getX() + "," + getPosition().getY() +") e dimensioni " + getDimension().getWidth() + "x" + getDimension().getHeight();
 	}
 
 }

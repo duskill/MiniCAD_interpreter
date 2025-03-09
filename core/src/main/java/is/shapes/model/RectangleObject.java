@@ -92,6 +92,6 @@ public final class RectangleObject extends AbstractGraphicObject {
 
 	@Override
 	public String toString() {
-		return "Oggetto id: "+ getId() + " di tipo " + getType() + " in posizione " + getPosition() + " e dimensioni " + getDimension();
+		return "Oggetto id: "+ getId() + " di tipo " + getType() + " in posizione (" + getPosition().getX() + "," + getPosition().getY() +") e dimensioni " + getDimension().getWidth() + "x" + getDimension().getHeight();
 	}
 }

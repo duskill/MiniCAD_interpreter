@@ -95,6 +95,6 @@ public final  class CircleObject extends AbstractGraphicObject {
 
 	@Override
 	public String toString() {
-		return "Oggetto id: "+ getId() + " di tipo " + getType() + " in posizione " + getPosition() + " e raggio " + getRadius();
+		return "Oggetto id: "+ getId() + " di tipo " + getType() + " in posizione (" + getPosition().getX() + "," + getPosition().getY() +") e raggio " + getRadius();
 	}
 }
