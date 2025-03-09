@@ -67,7 +67,7 @@ public class Group extends AbstractGraphicObject {
         double deltaY = p.getY() - posizioneAttuale.getY();
 
         //lo applico a tutti gli oggetti
-        GroupIterator it = new GroupIterator(this);
+        GroupIterator it = createIterator();
         while(it.hasNext()){
             GraphicObject obj = it.next();
             Point2D vecchiaPosizioneObj = obj.getPosition();
@@ -92,7 +92,7 @@ public class Group extends AbstractGraphicObject {
         double minX = Double.MAX_VALUE, minY = Double.MAX_VALUE;
         double maxX = Double.MIN_VALUE, maxY = Double.MIN_VALUE;
 
-        GroupIterator it = new GroupIterator(this);
+        GroupIterator it = createIterator();
         while(it.hasNext()){
             GraphicObject obj = it.next();
             Point2D position = obj.getPosition();
@@ -114,7 +114,7 @@ public class Group extends AbstractGraphicObject {
 
     @Override
     public void scale(double factor) {
-        GroupIterator it = new GroupIterator(this);
+        GroupIterator it = createIterator();
         while(it.hasNext()){
             GraphicObject obj = it.next();
             obj.scale(factor);
@@ -154,7 +154,7 @@ public class Group extends AbstractGraphicObject {
     @Override
     public GraphicObjectMemento saveState() {
         List<GraphicObjectMemento> savedStates = new ArrayList<>();
-        GroupIterator iterator = new GroupIterator(this);
+        GroupIterator iterator = createIterator();
         while (iterator.hasNext()) {
             savedStates.add(iterator.next().saveState());
         }
@@ -168,7 +168,7 @@ public class Group extends AbstractGraphicObject {
         }
         GroupMemento groupMemento = (GroupMemento) memento;
         setParent(groupMemento.getParent());
-        GroupIterator iterator = new GroupIterator(this);
+        GroupIterator iterator = createIterator();
         Iterator<GraphicObjectMemento> mementoIterator = groupMemento.getChildrenMementos().iterator();
 
         while (iterator.hasNext() && mementoIterator.hasNext()) {
@@ -178,5 +178,9 @@ public class Group extends AbstractGraphicObject {
 
     public String toString() {
         return "Oggetto id: "+ getId() + " di tipo " + getType() + " in posizione " + getPosition() + "\n" + "Contenuto: " + getChildren();
+    }
+
+    public GroupIterator createIterator(){
+        return new GroupIterator(this);
     }
 }
