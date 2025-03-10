@@ -28,33 +28,31 @@ java -jar MiniCAD_interpreter.jar
 
 L'interprete segue la seguente grammatica:
 
-Grammatica
+\<cmd\> :=\<create\>|\<remove\>|\<move\>|\<scale\>|\<list\>|\<group\>|\<ungroup\>|\<area\>|\<perimeter\>
 
-<cmd> :=<create>|<remove>|<move>|<scale>|<list>|<group>|<ungroup>|<area>|<perimeter>
+\<create\>::= new \<typeconstr\> \<pos\>
 
-<create>::= new <typeconstr> <pos>
+\<remove\>::= del \<objID\>
 
-<remove>::= del <objID>
+\<move\>::= mv \<objID\> \<pos\> | mvoff \<objID\> \<pos\> 
 
-<move>::= mv <objID> <pos> | mvoff <objID> <pos> 
+\<scale\>::= scale \<objID\> \<posfloat\>
 
-<scale>::= scale <objID> <posfloat>
+\<list\>::= ls \<objID\>| ls \<type\> | ls all | ls groups
 
-<list>::= ls <objID>| ls <type> | ls all | ls groups
+\<group\>::= grp \<listID\>
 
-<group>::= grp <listID>
+\<ungroup\>::= ungrp \<objID\>
 
-<ungroup>::= ungrp <objID>
+\<area\>::= area \<objID\>| area \<type\> | area all
 
-<area>::= area <objID>| area <type> | area all
+\<perimeter\>::= perimeter \<objID\>| perimeter \<type\> | perimeter all
 
-<perimeter>::= perimeter <objID>| perimeter <type> | perimeter all
+\<pos\>::= ( \<posfloat\> , \<posfloat\> )
 
-<pos>::= ( <posfloat> , <posfloat> )
+\<typeconstr\>::= circle (\<posfloat\>) | rectangle \<pos\> | img (\<path\>)
 
-<typeconstr>::= circle (<posfloat>) | rectangle <pos> | img (<path>)
+\<type\>::= circle | rectangle | img
 
-<type>::= circle | rectangle | img
-
-<listID>::= <objID> { , <objID> }
+\<listID\>::= \<objID\> { , \<objID\> }
 
