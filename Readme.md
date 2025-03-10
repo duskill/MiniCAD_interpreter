@@ -50,7 +50,7 @@ Grammatica
 
 <perimeter>::= perimeter <objID>| perimeter <type> | perimeter all
 
-<pos>::=( <posfloat> , <posfloat> )
+<pos>::= ( <posfloat> , <posfloat> )
 
 <typeconstr>::= circle (<posfloat>) | rectangle <pos> | img (<path>)
 
