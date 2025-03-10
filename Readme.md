@@ -30,7 +30,7 @@ L'interprete segue la seguente grammatica:
 
 Grammatica
 
-<cmd>::=<create>|<remove>|<move>|<scale>|<list>|<group>|<ungroup>|<area>|<perimeter>
+<cmd> :=<create>|<remove>|<move>|<scale>|<list>|<group>|<ungroup>|<area>|<perimeter>
 
 <create>::= new <typeconstr> <pos>
 
