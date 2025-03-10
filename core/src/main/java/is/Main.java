@@ -22,7 +22,7 @@ import is.shapes.model.ImageObject;
 import is.shapes.model.RectangleObject;
 import is.shapes.view.*;
 
-public class TestGraphics2 {
+public class Main {
 
 	public static void main(String[] args) {
 
@@ -66,7 +66,7 @@ public class TestGraphics2 {
 		circButton2.setText("big " + go.getType());
 		toolbar.add(circButton2);
 
-		go = new ImageObject(new ImageIcon(TestGraphics2.class.getResource("shapes/model/NyaNya.gif")),
+		go = new ImageObject(new ImageIcon(Main.class.getResource("shapes/model/NyaNya.gif")),
 				new Point(240, 187));
 
 		JButton imgButton = new JButton(new CreateObjectAction(go, gpanel, handler));
